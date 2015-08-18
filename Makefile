@@ -5,6 +5,8 @@ BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 
+DEP_DIR = /tmp/dep-dir
+
 PACKAGE_VERSION = 2.26.2
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
@@ -15,7 +17,7 @@ SOURCE_PATH = /tmp/source
 SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=$(RELEASE_DIR) --sbindir=$(RELEASE_DIR)/usr/bin --bindir=$(RELEASE_DIR)/usr/bin --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
-CFLAGS = -static -static-libgcc -Wl,-static -lc
+CFLAGS = -static -static-libgcc -Wl,-static -lc -I$(DEP_DIR)
 
 .PHONY : default source manual container build version push local
 
@@ -34,7 +36,9 @@ container:
 	./meta/launch
 
 build: source
-	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR) $(DEP_DIR)
+	mkdir -p $(DEP_DIR)/usr/include
+	cp -R /usr/include/linux $(DEP_DIR)/usr/include/
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS)
 	cd $(BUILD_DIR) && make install

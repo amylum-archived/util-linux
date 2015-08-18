@@ -45,6 +45,7 @@ build: source
 	sed -i "s|^\(usrsbin_execdir=.*\)/sbin'$$|\1/bin'|" $(BUILD_DIR)/configure
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
+	rm -r $(RELEASE_DIR)/usr/share/{doc,bash-completion}
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *

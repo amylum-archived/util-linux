@@ -16,8 +16,8 @@ SOURCE_URL = https://www.kernel.org/pub/linux/utils/util-linux/v$(SOURCE_VERSION
 SOURCE_PATH = /tmp/source
 SOURCE_TARBALL = /tmp/source.tar.gz
 
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --sbindir=$(RELEASE_DIR)/usr/bin --bindir=$(RELEASE_DIR)/usr/bin --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
-CONF_FLAGS = --disable-shared --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses
+PATH_FLAGS = --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
+CONF_FLAGS = --disable-shared --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses --disable-bash-completion
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 CPPFLAGS = -I$(DEP_DIR)/usr/include
 

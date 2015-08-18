@@ -17,7 +17,7 @@ SOURCE_PATH = /tmp/source
 SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=$(RELEASE_DIR)/usr --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
-CONF_FLAGS = --disable-shared --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses --disable-bash-completion
+CONF_FLAGS = --disable-shared --disable-static --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses --disable-bash-completion
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 CPPFLAGS = -I$(DEP_DIR)/usr/include
 
@@ -42,6 +42,7 @@ build: source
 	mkdir -p $(DEP_DIR)/usr/include
 	cp -R /usr/include/{linux,asm,asm-generic} $(DEP_DIR)/usr/include/
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
+	sed -i "s|^\(usrsbin_execdir=.*\)/sbin'$$|\1/bin'|" $(BUILD_DIR)/configure
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)

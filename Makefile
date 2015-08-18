@@ -40,7 +40,7 @@ container:
 build: source
 	rm -rf $(BUILD_DIR) $(DEP_DIR)
 	mkdir -p $(DEP_DIR)/usr/include
-	cp -R /usr/include/linux $(DEP_DIR)/usr/include/
+	cp -R /usr/include/{linux,asm,asm-generic} $(DEP_DIR)/usr/include/
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install

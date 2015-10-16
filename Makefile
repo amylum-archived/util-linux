@@ -11,8 +11,7 @@ PACKAGE_VERSION = 2.27
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 
-SOURCE_VERSION_DIR = $(shell echo $(PACKAGE_VERSION) | sed 's/\.[0-9]*$$//')
-SOURCE_URL = https://www.kernel.org/pub/linux/utils/util-linux/v$(SOURCE_VERSION_DIR)/$(PACKAGE)-$(PACKAGE_VERSION).tar.gz
+SOURCE_URL = https://www.kernel.org/pub/linux/utils/util-linux/v$(PACKAGE_VERSION)/$(PACKAGE)-$(PACKAGE_VERSION).tar.gz
 SOURCE_PATH = /tmp/source
 SOURCE_TARBALL = /tmp/source.tar.gz
 

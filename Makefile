@@ -22,7 +22,13 @@ CONF_FLAGS = --disable-shared --disable-static --enable-fs-paths-default=/usr/bi
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 CPPFLAGS = -I$(DEP_DIR)/usr/include
 
-.PHONY : default source manual container build version push local
+PAM_VERSION = 1.2.1-9
+PAM_URL = https://github.com/amylum/pam/releases/download/$(PAM_VERSION)/pam.tar.gz
+PAM_TAR = /tmp/pam.tar.gz
+PAM_DIR = /tmp/pam
+PAM_PATH = -I$(PAM_DIR)/usr/include -L$(PAM_DIR)/usr/lib
+
+.PHONY : default source manual deps container build version push local
 
 default: container
 
@@ -38,13 +44,20 @@ manual:
 container:
 	./meta/launch
 
-build: source
-	rm -rf $(BUILD_DIR) $(DEP_DIR)
+deps:
+	rm -rf $(DEP_DIR)
 	mkdir -p $(DEP_DIR)/usr/include
 	cp -R /usr/include/{linux,asm,asm-generic} $(DEP_DIR)/usr/include/
+	rm -rf $(PAM_DIR) $(PAM_TAR)
+	mkdir $(PAM_DIR)
+	curl -sLo $(PAM_TAR) $(PAM_URL)
+	tar -x -C $(PAM_DIR) -f $(PAM_TAR)
+
+build: source deps
+	rm -rf $(BUILD_DIR)
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
 	sed -i "s|^\(usrsbin_execdir=.*\)/sbin'$$|\1/bin'|" $(BUILD_DIR)/configure
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(PAM_PATH)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
 	rm -r $(RELEASE_DIR)/usr/share/{doc,bash-completion}
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)

@@ -52,6 +52,7 @@ deps:
 	mkdir $(PAM_DIR)
 	curl -sLo $(PAM_TAR) $(PAM_URL)
 	tar -x -C $(PAM_DIR) -f $(PAM_TAR)
+	find $(PAM_DIR) -name '*.la' -delete
 
 build: source deps
 	rm -rf $(BUILD_DIR)

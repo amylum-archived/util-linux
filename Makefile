@@ -22,7 +22,7 @@ CONF_FLAGS = --disable-shared --disable-static --enable-fs-paths-default=/usr/bi
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 CPPFLAGS = -I$(DEP_DIR)/usr/include
 
-PAM_VERSION = 1.2.1-9
+PAM_VERSION = 1.2.1-10
 PAM_URL = https://github.com/amylum/pam/releases/download/$(PAM_VERSION)/pam.tar.gz
 PAM_TAR = /tmp/pam.tar.gz
 PAM_DIR = /tmp/pam

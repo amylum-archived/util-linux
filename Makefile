@@ -19,7 +19,7 @@ SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=$(RELEASE_DIR)/usr --sbindir=$(RELEASE_DIR)/usr/bin --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
 CONF_FLAGS = --disable-shared --disable-static --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses --disable-bash-completion
-CFLAGS = -static -static-libgcc -Wl,-static -lc
+CFLAGS =
 CPPFLAGS = -I$(DEP_DIR)/usr/include
 
 PAM_VERSION = 1.2.1-10
@@ -58,7 +58,7 @@ build: source deps
 	rm -rf $(BUILD_DIR)
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
 	sed -i "s|^\(usrsbin_execdir=.*\)/sbin'$$|\1/bin'|" $(BUILD_DIR)/configure
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(PAM_PATH)' CPPFLAGS=$(CPPFLAGS) ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc LDFLAGS='$(CFLAGS) $(PAM_PATH)' CFLAGS='$(CFLAGS) $(PAM_PATH)' CPPFLAGS='$(CPPFLAGS) $(PAM_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
 	rm -r $(RELEASE_DIR)/usr/share/{doc,bash-completion}
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)

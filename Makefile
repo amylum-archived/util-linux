@@ -29,10 +29,10 @@ default: container
 submodule:
 	git submodule update --init
 
-manual:
+manual: submodule
 	./meta/launch /bin/bash || true
 
-container:
+container: submodule
 	./meta/launch
 
 deps:

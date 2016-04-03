@@ -7,15 +7,9 @@ RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 
 DEP_DIR = /tmp/dep-dir
 
-PACKAGE_VERSION = 2.28-rc2
+PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/v//')
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
-
-MAJOR_MINOR = $(shell echo $(PACKAGE_VERSION) | sed 's/\.[0-9]*$$//;s/-rc[0-9]*$$//')
-
-SOURCE_URL = https://www.kernel.org/pub/linux/utils/util-linux/v$(MAJOR_MINOR)/$(PACKAGE)-$(PACKAGE_VERSION).tar.gz
-SOURCE_PATH = /tmp/source
-SOURCE_TARBALL = /tmp/source.tar.gz
 
 PATH_FLAGS = --prefix=$(RELEASE_DIR)/usr --sbindir=$(RELEASE_DIR)/usr/bin --mandir=$(RELEASE_DIR)/usr/share/man --libdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --docdir=$(RELEASE_DIR)/usr/share/doc/$(PACKAGE) --infodir=/tmp/trash
 CONF_FLAGS = --disable-shared --disable-static --enable-fs-paths-default=/usr/bin --disable-more --without-ncurses --disable-bash-completion
@@ -28,15 +22,12 @@ PAM_TAR = /tmp/pam.tar.gz
 PAM_DIR = /tmp/pam
 PAM_PATH = -I$(PAM_DIR)/usr/include -L$(PAM_DIR)/usr/lib
 
-.PHONY : default source manual deps container build version push local
+.PHONY : default submodule manual deps container build version push local
 
 default: container
 
-source:
-	rm -rf $(SOURCE_PATH) $(SOURCE_TARBALL)
-	mkdir $(SOURCE_PATH)
-	curl -sLo $(SOURCE_TARBALL) $(SOURCE_URL)
-	tar -x -C $(SOURCE_PATH) -f $(SOURCE_TARBALL) --strip-components=1
+submodule:
+	git submodule update --init
 
 manual:
 	./meta/launch /bin/bash || true
@@ -54,11 +45,11 @@ deps:
 	tar -x -C $(PAM_DIR) -f $(PAM_TAR)
 	find $(PAM_DIR) -name '*.la' -delete
 
-build: source deps
+build: deps
 	rm -rf $(BUILD_DIR)
 	cp -R $(SOURCE_PATH) $(BUILD_DIR)
 	sed -i "s|^\(usrsbin_execdir=.*\)/sbin'$$|\1/bin'|" $(BUILD_DIR)/configure
-	cd $(BUILD_DIR) && CC=musl-gcc LDFLAGS='$(CFLAGS) $(PAM_PATH)' CFLAGS='$(CFLAGS) $(PAM_PATH)' CPPFLAGS='$(CPPFLAGS) $(PAM_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(PAM_PATH)' CPPFLAGS='$(CPPFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make install
 	rm -r $(RELEASE_DIR)/usr/share/{doc,bash-completion}
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)

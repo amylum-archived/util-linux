@@ -11,7 +11,7 @@ PACKAGE_VERSION = 2.28-rc2
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 
-MAJOR_MINOR = $(shell echo $(PACKAGE_VERSION) | sed 's/\.[0-9]$$//')
+MAJOR_MINOR = $(shell echo $(PACKAGE_VERSION) | sed 's/\.[0-9]*$$//;s/-rc[0-9]*$$//')
 
 SOURCE_URL = https://www.kernel.org/pub/linux/utils/util-linux/v$(MAJOR_MINOR)/$(PACKAGE)-$(PACKAGE_VERSION).tar.gz
 SOURCE_PATH = /tmp/source

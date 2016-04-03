@@ -7,7 +7,7 @@ RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 
 DEP_DIR = /tmp/dep-dir
 
-PACKAGE_VERSION = 2.27.1
+PACKAGE_VERSION = 2.28-rc2
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 

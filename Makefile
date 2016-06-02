@@ -54,6 +54,7 @@ build: deps
 	rm -rf $(RELEASE_DIR)/usr/share/{doc,bash-completion}
 	rm -rf $(RELEASE_DIR)/tmp
 	mv $(RELEASE_DIR)/{,usr/}sbin/* $(RELEASE_DIR)/usr/bin
+	rm -rf $(RELEASE_DIR)/{,usr/}sbin
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp $(BUILD_DIR)/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *

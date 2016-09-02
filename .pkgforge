@@ -1,0 +1,29 @@
+name 'util-linux'
+org 'amylum'
+
+deps(
+  pam: '1.3.0-11',
+  ncurses: '6.0-2'
+)
+
+configure_flags(
+  prefix: '/usr',
+  libdir: '/usr/lib',
+  bindir: '/usr/bin',
+  localstatedir: '/run',
+  'enable-fs-paths-default': '/usr/bin',
+)
+
+cflags
+harden
+
+build do
+  run './autogen.sh'
+  configure
+  make
+  install
+end
+
+test do
+  # TODO: add tests
+end

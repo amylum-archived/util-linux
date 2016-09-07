@@ -1,6 +1,8 @@
 name 'util-linux'
 org 'amylum'
 
+license 'COPYING'
+
 deps(
   pam: '1.3.0-11',
   ncurses: '6.0-3',
@@ -23,8 +25,10 @@ build do
   configure
   make
   install
+  run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"
+  rm "#{releasedir}/sbin", "#{releasedir}/usr/sbin"
 end
 
 test do
-  # TODO: add tests
+  run 'kill --version'
 end

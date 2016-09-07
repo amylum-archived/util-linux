@@ -8,6 +8,7 @@ deps(
   ncurses: '6.0-3',
   'linux-api-headers': '4.8-rc4-1'
 )
+remove_linker_archives
 
 configure_flags(
   prefix: '/usr',

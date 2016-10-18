@@ -27,7 +27,7 @@ build do
   make
   install
   run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"
-  rm ["#{releasedir}/sbin", "#{releasedir}/usr/sbin"]
+  rm ['sbin', 'usr/sbin']
 end
 
 test do

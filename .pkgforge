@@ -16,6 +16,7 @@ configure_flags(
   bindir: '/usr/bin',
   localstatedir: '/run',
   'enable-fs-paths-default': '/usr/bin',
+  'disable-rpath': nil
 )
 remove_linker_archives
 remove_pkgconfig_files

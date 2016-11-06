@@ -17,6 +17,8 @@ configure_flags(
   localstatedir: '/run',
   'enable-fs-paths-default': '/usr/bin',
 )
+remove_linker_archives
+remove_pkgconfig_files
 
 cflags
 harden

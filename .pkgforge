@@ -9,6 +9,7 @@ deps(
   'linux-api-headers': '4.9-rc3-2'
 )
 remove_linker_archives
+remove_pkgconfig_files
 
 configure_flags(
   prefix: '/usr',
@@ -18,15 +19,13 @@ configure_flags(
   'enable-fs-paths-default': '/usr/bin',
   'disable-rpath': nil
 )
-remove_linker_archives
-remove_pkgconfig_files
 
 cflags
 harden
 
 build do
   run './autogen.sh'
-  configure
+  configure 'CPPFLAGS' => @forge.cflags.join(' ')
   make
   install
   run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"

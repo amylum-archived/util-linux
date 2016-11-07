@@ -27,6 +27,7 @@ build do
   run './autogen.sh'
   configure 'CPPFLAGS' => @forge.cflags.join(' ')
   make 'V' => '1'
+  run "sed -i 's|-rpath /usr/lib|-rpath #{releasedir}|' *.la"
   install 'V' => '1'
   run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"
   rm ['sbin', 'usr/sbin']

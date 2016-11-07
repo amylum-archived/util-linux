@@ -26,8 +26,8 @@ harden
 build do
   run './autogen.sh'
   configure 'CPPFLAGS' => @forge.cflags.join(' ')
-  make
-  install
+  make 'V' => '1'
+  install 'V' => '1'
   run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"
   rm ['sbin', 'usr/sbin']
 end

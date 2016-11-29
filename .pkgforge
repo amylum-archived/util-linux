@@ -27,7 +27,7 @@ build do
   run './autogen.sh'
   configure 'CPPFLAGS' => @forge.cflags.join(' ')
   make 'V' => '1'
-  run 'find . -name "*.so*" -type f | xargs chrpath -d'
+  run 'find .libs -name "*.so*" -type f | xargs chrpath -d'
   install 'V' => '1'
   run "mv #{releasedir}/{,usr/}sbin/* #{releasedir}/usr/bin"
   rm ['sbin', 'usr/sbin']

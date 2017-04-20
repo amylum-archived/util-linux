@@ -17,7 +17,8 @@ configure_flags(
   bindir: '/usr/bin',
   localstatedir: '/run',
   'enable-fs-paths-default': '/usr/bin',
-  'disable-rpath': nil
+  'disable-rpath': nil,
+  'with-systemd': 'no'
 )
 
 cflags

@@ -9,8 +9,8 @@ deps(
     checksum: '536050e1bd7687bc283d48c17e10e2a49cca6ed8bb0ae83e6a7e8601b09188f9'
   },
   ncurses: {
-    version: '6.1-20180707-1',
-    checksum: '74358393247ada7e4e6d52fefb07d558e91331755f5a0cdcfe1299f0fe0eba12'
+    version: '6.1-20180714-1',
+    checksum: '68a7b88315ebea64081220cdddff1a5d4df95985b088e6a2b25b13f0353e125f'
   },
   'linux-api-headers': {
     version: '4.17-1',

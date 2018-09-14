@@ -5,12 +5,12 @@ license 'COPYING'
 
 deps(
   pam: {
-    version: '1.3.0-42',
-    checksum: '0223ee13b61c8dd13b5782aa68809105a66733a61dcdfb0330783dfb60866a19'
+    version: '1.3.0-43',
+    checksum: '46f95d8c6582630e677b7c419635fc8a0013e70ed2a9e07edce7ae8807362611'
   },
   ncurses: {
-    version: '6.1-20180818-1',
-    checksum: '3a65bb2b1eefdbdabcc6aba9b5d45e132d8e1ef406a73e140549837fb491158f'
+    version: '6.1-20180908-1',
+    checksum: 'd4a3ce8a59ae2c8bac367a993cd2f6952d48cb6f0390db6612f186d177e867cb'
   },
   'linux-api-headers': {
     version: '4.18-1',

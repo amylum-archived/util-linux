@@ -8,7 +8,8 @@ item do
   expected do
     github_tag
     repo 'karelzak/util-linux'
-    regex /^v([\w.-]+)$/
+    regex /^v([\w.]+)$/
+    filter /^v([\w.]+)$/
   end
 
   actual do

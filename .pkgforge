@@ -9,12 +9,12 @@ deps(
     checksum: '8756e2e0b2634bcad1533c44e645f155cd47f53ed68de4dcf19a10b6406030eb'
   },
   ncurses: {
-    version: '6.1-20181215-1',
-    checksum: 'e9ff7a34ec78c802325c044161dc3a1233a604d9462bcda4940ab91c9ca17351'
+    version: '6.1-20181229-1',
+    checksum: '39c18998d4104ef85e1a52168324a1d35a6d425b4a7180e8477b4b312335879b'
   },
   'linux-api-headers': {
-    version: '4.19-1',
-    checksum: 'de68cab17c2354ee660b269ccca30e275a9314563ebdfb4f427fc5ebe1395f30'
+    version: '4.20-1',
+    checksum: 'aed037b2b3fb2df77ca19359a20188d39c25d011febf4d3733d251fa87ca9636'
   }
 )
 remove_linker_archives

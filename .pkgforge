@@ -5,16 +5,16 @@ license 'COPYING'
 
 deps(
   pam: {
-    version: '1.3.0-51',
-    checksum: '7a83c48ab37dd86bcc173c3847813753ed973ae2ca6fe5cb694de1c921e881b8'
+    version: '1.3.0-52',
+    checksum: '5b5108feabba6bf404796ee2192f60a5f492087067faa42cc9d44ca23fab7950'
   },
   ncurses: {
-    version: '6.1-20190202-1',
-    checksum: '0b323fde5d57a56d1b56e7d3a5c32f8dd80feb827579987c6170822f3fb54988'
+    version: '6.1-20190302-1',
+    checksum: 'bfa6556d88359b3b2815ae198d9acab192df5bbf87c8a2b2915d6a72da5f7111'
   },
   'linux-api-headers': {
-    version: '4.20-1',
-    checksum: 'aed037b2b3fb2df77ca19359a20188d39c25d011febf4d3733d251fa87ca9636'
+    version: '5.0-1',
+    checksum: '0703e1a5406fea7aa0072034e815fc2b3188151732ec61b134b0e54aa3e752ab'
   }
 )
 remove_linker_archives
